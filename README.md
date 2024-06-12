@@ -1,3 +1,2 @@
-# Shubham Attri
-
+I love to build things 
 
