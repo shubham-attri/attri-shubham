@@ -3,124 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shubham Attri - Tech Optimist</title>
+    <title>a3fckx@terminal:~$</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
             line-height: 1.6;
-            color: #333;
-            max-width: 800px;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .terminal {
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 2rem;
-            background-color: #f5f5f5;
+            padding: 15px;
+            background: #000;
+            border: 2px solid #00ff00;
+            box-shadow: 0 0 10px #00ff00;
         }
 
-        .container {
-            background-color: white;
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .header {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #00ff00;
+            flex-wrap: wrap;
         }
 
-        .profile {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .profile img {
+        .profile-left {
+            flex: 0 0 auto;
+            position: relative;
             width: 200px;
             height: 200px;
-            border-radius: 50%;
+        }
+
+        .pixelated-img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            margin-bottom: 1.5rem;
-            border: 3px solid #f0f0f0;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            filter: contrast(1.2) brightness(1.1);
+            border: 2px solid #00ff00;
+            background: #000;
+            position: relative;
         }
 
-        h1 {
-            color: #1a1a1a;
-            margin-bottom: 0.5rem;
-            font-size: 2.5rem;
+        .pixelated-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                rgba(0,255,0,0.1) 25%,
+                transparent 25%,
+                transparent 75%,
+                rgba(0,255,0,0.1) 75%
+            );
+            background-size: 4px 4px;
+            pointer-events: none;
         }
 
-        .subtitle {
-            color: #666;
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+        .profile-right {
+            flex: 1;
+            min-width: 280px;
         }
 
-        p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
+        .cursor {
+            animation: blink 1s infinite;
+            display: inline-block;
         }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
+        @keyframes blink {
+            50% { opacity: 0; }
         }
 
-        .social-links a {
-            color: #333;
+        h1, h2 {
+            color: #00ff00;
+            border-bottom: 1px solid #00ff00;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #00ffff;
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 6px;
             transition: all 0.3s ease;
         }
 
-        .social-links a:hover {
-            background-color: #f0f0f0;
-            transform: translateY(-2px);
+        a:hover {
+            text-decoration: underline;
+            color: #ff00ff;
+            text-shadow: 0 0 5px #ff00ff;
         }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 1rem;
-            }
-            
-            .container {
-                padding: 1.5rem;
+        .prompt::before {
+            content: "a3fckx@terminal:~$ ";
+            color: #00ff00;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #00ff00;
+        }
+
+        .project {
+            margin: 10px 0;
+            padding: 15px;
+            border-left: 2px solid #00ff00;
+            background: rgba(0,255,0,0.05);
+        }
+
+        .project::before {
+            content: "→ ";
+            color: #ff00ff;
+        }
+
+        .status {
+            color: #ffff00;
+            text-shadow: 0 0 5px rgba(255,255,0,0.5);
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin: 10px 0;
+            padding: 5px;
+            border-left: 2px solid #00ff00;
+        }
+
+        ul li::before {
+            content: "$ ";
+            color: #ff00ff;
+        }
+
+        .book {
+            margin: 10px 0;
+            padding-left: 20px;
+            color: #00ffff;
+        }
+
+        .social-links {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            padding: 5px 10px;
+            border: 1px solid #00ff00;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
             }
 
-            .profile img {
+            .profile-left {
                 width: 150px;
                 height: 150px;
             }
 
+            .section {
+                padding: 10px;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .terminal {
+                padding: 10px;
+            }
+
+            .profile-left {
+                width: 120px;
+                height: 120px;
+            }
+
             h1 {
-                font-size: 2rem;
+                font-size: 1.5em;
+            }
+
+            .section {
+                margin: 10px 0;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="profile">
-            <img src="Shubham Building.jpg" alt="Shubham Attri">
-            <h1>Shubham Attri</h1>
-            <div class="subtitle">Tech Optimist & Student for Life</div>
+    <div class="terminal">
+        <div class="header">
+            <div class="profile-left">
+                <img src="Shubham Building.jpg" alt="a3fckx" class="pixelated-img">
+            </div>
+            <div class="profile-right">
+                <div class="prompt">whoami</div>
+                <h1>a3fckx (Shubham Attri)</h1>
+                <p class="status">Status: Tech Optimist & Student for Life</p>
+                <p>Location: India</p>
+                <p>Education: Computer Science Engineering</p>
+                <p>Interests: AI, Consumer Tech, Building Products</p>
+                <div class="social-links">
+                    <a href="https://x.com/A3fckx" target="_blank" rel="noopener noreferrer">Twitter</a> | 
+                    <a href="https://shubhamattri.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a> | 
+                    <a href="https://github.com/shubham-attri" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
+            </div>
         </div>
 
-        <p>
-            I am all about building and people.<br> I am bullish on India and the opportunities it has to offer for young folks like me.
-        </p>
-
-        <p>
-            I've been building in the consumer space with <a href="https://bestiabrisk.com/" target="_blank">bestiabrisk</a>, and I am loving every bit of it.
-        </p>
-
-        <div class="social-links">
-            <a href="https://x.com/A3fckx" target="_blank">Twitter</a>
-            <a href="https://shubhamattri.substack.com/" target="_blank">Substack</a>
-            <a href="https://github.com/shubham-attri" target="_blank">GitHub</a>
+        <div class="section">
+            <div class="prompt">cat current_interests.txt</div>
+            <h2>AI Journey & Learning</h2>
+            <ul>
+                <li>Currently exploring: Large Language Models</li>
+                <li>Learning: Prompt Engineering & AI Applications</li>
+                <li>Built: [List your AI projects/experiments here]</li>
+                <li>Reading: Latest developments in AI/ML</li>
+            </ul>
         </div>
+
+        <div class="section">
+            <div class="prompt">ls ~/projects/</div>
+            <h2>Projects</h2>
+            <div class="project">
+                <strong>bestiabrisk</strong>
+                <p>Building in the consumer space</p>
+                <p>Tech Stack: [Your tech stack]</p>
+                <p>Status: Active Development 🚀</p>
+                <a href="https://bestiabrisk.com/" target="_blank" rel="noopener noreferrer">Visit Project →</a>
+            </div>
+            <!-- Add more projects here -->
+        </div>
+
+        <div class="section">
+            <div class="prompt">cat reading_list.txt</div>
+            <h2>Book Recommendations</h2>
+            <div class="book">
+                <p>1. [Book Title] - Author</p>
+                <p>   Key takeaway: Brief description</p>
+            </div>
+            <!-- Add more books -->
+        </div>
+
+        <div class="section">
+            <div class="prompt">cat note.txt</div>
+            <h2>Personal Note</h2>
+            <p>I am all about building and people. Bullish on India and the opportunities it has to offer for young folks like me.</p>
+        </div>
+
+        <div class="prompt">_<span class="cursor">█</span></div>
     </div>
 </body>
 </html>
