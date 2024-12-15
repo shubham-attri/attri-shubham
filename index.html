@@ -42,39 +42,21 @@
             flex: 0 0 auto;
             position: relative;
             width: 200px;
-            height: 200px;
+            height: auto;
+            min-height: 200px;
         }
 
         .pixelated-img {
             width: 100%;
-            height: 100%;
+            height: 200px;
             object-fit: cover;
-            image-rendering: pixelated;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            filter: contrast(1.2) brightness(1.1);
             border: 2px solid #00ff00;
             background: #000;
             position: relative;
         }
 
         .pixelated-img::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                45deg,
-                rgba(0,255,0,0.1) 25%,
-                transparent 25%,
-                transparent 75%,
-                rgba(0,255,0,0.1) 75%
-            );
-            background-size: 4px 4px;
-            pointer-events: none;
+            display: none;
         }
 
         .profile-right {
@@ -178,11 +160,18 @@
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
+                gap: 15px;
             }
 
             .profile-left {
-                width: 150px;
-                height: 150px;
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .pixel-quote {
+                font-size: 0.8em;
+                margin: 10px auto;
+                max-width: 300px;
             }
 
             .section {
@@ -191,6 +180,10 @@
 
             .social-links {
                 justify-content: center;
+            }
+
+            .project {
+                padding: 10px;
             }
         }
 
@@ -204,16 +197,72 @@
             }
 
             .profile-left {
-                width: 120px;
-                height: 120px;
+                max-width: 150px;
+            }
+
+            .pixel-quote {
+                font-size: 0.75em;
+                padding: 8px;
+                max-width: 250px;
             }
 
             h1 {
-                font-size: 1.5em;
+                font-size: 1.3em;
             }
 
             .section {
                 margin: 10px 0;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .social-links a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        .pixel-quote {
+            font-size: 0.85em;
+            color: #ffff00;
+            text-shadow: 0 0 5px rgba(255,255,0,0.3);
+            margin-top: 10px;
+            padding: 10px;
+            border-left: 2px solid #00ff00;
+            background: rgba(0,255,0,0.05);
+            font-style: italic;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+            hyphens: auto;
+        }
+
+        .about-content {
+            padding: 10px;
+            border-left: 2px solid #00ff00;
+            background: rgba(0,255,0,0.05);
+            margin: 10px 0;
+        }
+
+        .about-content p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .about-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 480px) {
+            .about-content {
+                padding: 8px;
+                font-size: 0.9em;
             }
         }
     </style>
@@ -223,14 +272,19 @@
         <div class="header">
             <div class="profile-left">
                 <img src="Shubham Building.jpg" alt="a3fckx" class="pixelated-img">
+                <div class="pixel-quote">
+                    "Fail Faster, Fail Better and if i would be resilient enough, i can make some impact" - Living by this
+                </div>
             </div>
             <div class="profile-right">
                 <div class="prompt">whoami</div>
                 <h1>a3fckx (Shubham Attri)</h1>
-                <p class="status">Status: Tech Optimist & Student for Life</p>
-                <p>Location: India</p>
+                <p class="status">Preping for my First Marathon </p>
+                <p></p>
                 <p>Education: Computer Science Engineering</p>
-                <p>Interests: AI, Consumer Tech, Building Products</p>
+                <p>Location: India</p>
+                <p>Interests: AI, Consumer Tech, Startups</p>
+                <p></p>
                 <div class="social-links">
                     <a href="https://x.com/A3fckx" target="_blank" rel="noopener noreferrer">Twitter</a> | 
                     <a href="https://shubhamattri.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a> | 
@@ -240,13 +294,33 @@
         </div>
 
         <div class="section">
+            <div class="prompt">cat about.txt</div>
+            <h2>About Me</h2>
+            <div class="about-content">
+                <p>I'm Shubham, 22, a guy who loves building things, breaking things (on purpose), and figuring stuff out. My jam is coding, AI, and anything deep tech. I've built some fun projects, shipped stuff that works (mostly), and I'm always chasing the next crazy idea.</p>
+                
+                <p>I'm inspired by people Feynman, Balaji and Naval. I'm also super bullish on India and what's ahead for us in tech—I want to be in the mix when it happens.</p>
+                
+                <p>When I'm not coding, I'm probably working out or reading. I'm a big believer in staying humble, staying curious, and having fun while trying to build things that actually matter.</p>
+                
+                <p>And honestly? I don't know much. But that's the fun part—figuring it out along the way.</p>
+            </div>
+        </div>
+
+        <div class="section">
             <div class="prompt">cat current_interests.txt</div>
             <h2>AI Journey & Learning</h2>
             <ul>
-                <li>Currently exploring: Large Language Models</li>
-                <li>Learning: Prompt Engineering & AI Applications</li>
-                <li>Built: [List your AI projects/experiments here]</li>
-                <li>Reading: Latest developments in AI/ML</li>
+                <li>Currently exploring: Agents and RL for post training</li>
+                <li>Learning: Langchain Frameworks for agents and Model Inference</li>
+                <li>Building: <a href="https://github.com/shubham-attri/binod2">Agent Binod</a> Legal Assistant to Research, analyse and draft </li>
+                <li>Following: <a href="https://x.com/karpathy" > Andrej karpathy</a> and <a href="https://x.com/AIatMeta">Meta AI's</a> work </li>
+            </ul>
+            <h2>Consumer Business </h2>
+            <ul>
+                <li>Building a coffee company  <a href="https://bestiabrisk.com/" target="_blank" rel="noopener noreferrer">Bestia Brisk</a> with great team </li>
+                <li>We offer some unique blends, sourced from the finest farms of coorg estates, the ones which generally get exported back to Indian Consumers.</li>
+                <li>Started because something as exciting as coffee is made boring by the incumbents serving cheap mass produced coffee despite India being one of the largest producers of coffee and exporting 70% of it. </li>
             </ul>
         </div>
 
@@ -254,32 +328,40 @@
             <div class="prompt">ls ~/projects/</div>
             <h2>Projects</h2>
             <div class="project">
-                <strong>bestiabrisk</strong>
-                <p>Building in the consumer space</p>
-                <p>Tech Stack: [Your tech stack]</p>
+                <strong>Non Invasive Glucose Tracking</strong>
+                <p>Exploring NIR Spectrography to monitor blood glucose levels, have made some progress on it and validated the idea, now diversifying the individuals to monior response with.</p>
+                <p>Tech Stack: Collecting Data with NIR Sensor and then feature engineering and Training Auto Regressive models for prediction. </p>
                 <p>Status: Active Development 🚀</p>
-                <a href="https://bestiabrisk.com/" target="_blank" rel="noopener noreferrer">Visit Project →</a>
+                <a href="https://github.com/shubham-attri/Non-Invasive-Glucose-Monitoring" target="_blank" rel="noopener noreferrer">Visit Project →</a>
             </div>
             <!-- Add more projects here -->
+            <div class="project">
+                <strong>Image Denoising with CUDA</strong>
+                <p>Perform image processing on .tiff images with parallel processing using CUDA.</p>
+                <p>This was the course project for <a href="https://coursera.org/share/b8cb524c72dc0a635431f78587652997">GPU Programming Specialization</a> offered by Johns Hopkins University </p>
+                <a href="https://github.com/shubham-attri/Non-Invasive-Glucose-Monitoring" target="_blank" rel="noopener noreferrer">Visit Project →</a>
+            </div>
         </div>
 
         <div class="section">
             <div class="prompt">cat reading_list.txt</div>
-            <h2>Book Recommendations</h2>
+            <h2>Some books i love to recommend</h2>
             <div class="book">
-                <p>1. [Book Title] - Author</p>
-                <p>   Key takeaway: Brief description</p>
+                <li>The Almanack of Naval Ravikant </li>
+                <li>Zero to one</li>
+                <li>Amazons letter to shareholders</li>
             </div>
             <!-- Add more books -->
         </div>
 
-        <div class="section">
+        <!-- <div class="section">
             <div class="prompt">cat note.txt</div>
             <h2>Personal Note</h2>
-            <p>I am all about building and people. Bullish on India and the opportunities it has to offer for young folks like me.</p>
-        </div>
+            <p></p>
+        </div> -->
 
         <div class="prompt">_<span class="cursor">█</span></div>
     </div>
 </body>
 </html>
+
