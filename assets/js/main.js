@@ -38,60 +38,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load and display blogs
     async function loadBlogs() {
-        const blogItems = document.getElementById('blog-items');
-        if (!blogItems) return;
-        
-        // List of blog files
-        const blogFiles = [
-            { file: 'journey-into-ai.md', title: 'My Journey into AI and Deep Tech' },
-            { file: 'blog_001.md', title: 'Blog Post 1' }
-        ];
-        
-        // Create blog list
-        blogItems.innerHTML = '';
-        
-        blogFiles.forEach(blog => {
-            const li = document.createElement('li');
-            li.className = 'blog-item';
-            li.innerHTML = `<span class="blog-title">${blog.title}</span>`;
-            li.addEventListener('click', () => loadBlogContent(blog.file));
-            blogItems.appendChild(li);
-        });
+        try {
+            const blogItems = document.getElementById('blog-items');
+            if (!blogItems) return;
+            
+            // List of blog files - hardcoded for GitHub Pages
+            const blogFiles = [
+                { file: 'journey-into-ai.md', title: 'My Journey into AI and Deep Tech' },
+                { file: 'blog_001.md', title: 'Blog Post 1' }
+            ];
+            
+            // Create blog list
+            blogItems.innerHTML = '';
+            
+            blogFiles.forEach(blog => {
+                const li = document.createElement('li');
+                li.className = 'blog-item';
+                li.innerHTML = `<span class="blog-title">${blog.title}</span>`;
+                li.addEventListener('click', () => loadBlogContent(blog.file));
+                blogItems.appendChild(li);
+            });
+        } catch (error) {
+            console.error('Error loading blogs:', error);
+            const blogItems = document.getElementById('blog-items');
+            if (blogItems) {
+                blogItems.innerHTML = '<li class="blog-item">No blogs found.</li>';
+            }
+        }
     }
 
     // Load blog content
     async function loadBlogContent(file) {
-        const blogsContent = document.getElementById('blogs-content');
-        if (!blogsContent) return;
-        
         try {
             const response = await fetch(`content/blogs/${file}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const markdown = await response.text();
+            const parsedContent = parseFrontMatter(markdown);
+            const blogsContent = document.getElementById('blogs-content');
             
-            // Store original content
+            if (!blogsContent) return;
+            
+            // Store the original content
             const originalContent = blogsContent.innerHTML;
             
-            // Set new content with back button
+            // Update content with blog
             blogsContent.innerHTML = `
                 <button class="back-btn">← Back to Blogs</button>
-                ${marked.parse(markdown)}
+                ${marked.parse(parsedContent.content)}
             `;
             
-            // Add back button functionality
+            // Handle back button
             const backBtn = blogsContent.querySelector('.back-btn');
-            backBtn.addEventListener('click', () => {
-                blogsContent.innerHTML = originalContent;
-                loadBlogs(); // Reload the blog list with event listeners
-            });
-            
-            // Scroll to content
+            if (backBtn) {
+                backBtn.addEventListener('click', () => {
+                    blogsContent.innerHTML = originalContent;
+                    // Reattach event listeners
+                    loadBlogs();
+                });
+            }
+
+            // Scroll to blog content
             blogsContent.scrollIntoView({ behavior: 'smooth' });
         } catch (error) {
             console.error('Error loading blog content:', error);
-            blogsContent.innerHTML = '<p>Error loading blog content. Please try again.</p>';
+            const blogsContent = document.getElementById('blogs-content');
+            if (blogsContent) {
+                blogsContent.innerHTML = '<p>Error loading blog content. Please try again.</p>';
+            }
         }
     }
 
@@ -104,13 +119,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (!header || !content || !icon) return;
             
-            // Add click handler
             header.addEventListener('click', () => {
                 content.classList.toggle('active');
                 icon.textContent = content.classList.contains('active') ? '-' : '+';
             });
             
-            // First section always open
+            // Auto-expand first section (About)
             if (index === 0) {
                 content.classList.add('active');
                 icon.textContent = '-';
