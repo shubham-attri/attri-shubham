@@ -1,4 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Configure marked for VS Code-like rendering
+    marked.setOptions({
+        renderer: new marked.Renderer(),
+        highlight: function(code, lang) {
+            return code;
+        },
+        pedantic: false,
+        gfm: true,
+        breaks: false,
+        sanitize: false,
+        smartypants: false,
+        xhtml: false
+    });
+
     // Load section content
     async function loadSection(id, file) {
         try {
@@ -43,10 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!blogItems) return;
             
             // List of blog files - hardcoded for GitHub Pages
-            const blogFiles = [
-                { file: 'journey-into-ai.md', title: 'My Journey into AI and Deep Tech' },
-                { file: 'blog_001.md', title: 'Blog Post 1' }
-            ];
+            const response = await fetch('content/blogs/');
+            const blogFiles = await response.json();
             
             // Create blog list
             blogItems.innerHTML = '';
@@ -88,6 +100,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button class="back-btn">← Back to Blogs</button>
                 ${marked.parse(parsedContent.content)}
             `;
+            
+            // Add syntax highlighting to code blocks
+            document.querySelectorAll('pre code').forEach(block => {
+                block.innerHTML = block.innerHTML
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+            });
             
             // Handle back button
             const backBtn = blogsContent.querySelector('.back-btn');

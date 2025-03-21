@@ -18,6 +18,9 @@
             --border-color: #414868;
             --highlight: #7aa2f7;
             --link-color: #7dcfff;
+            --code-bg: #2d2d2d;
+            --inline-code-bg: #2e2e2e;
+            --blockquote-border: #3d3d3d;
         }
 
         * {
@@ -75,14 +78,38 @@
             display: block;
         }
 
+        /* VS Code-like markdown styling */
         .section-content h1,
-        .section-content h2 {
+        .section-content h2,
+        .section-content h3,
+        .section-content h4,
+        .section-content h5,
+        .section-content h6 {
             color: var(--terminal-green);
-            margin-bottom: 15px;
+            margin: 1em 0 0.5em;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        .section-content h1 {
+            font-size: 2em;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.3em;
+            margin-top: 0;
+        }
+
+        .section-content h2 {
+            font-size: 1.5em;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.3em;
+        }
+
+        .section-content h3 {
+            font-size: 1.25em;
         }
 
         .section-content p {
-            margin-bottom: 15px;
+            margin-bottom: 1em;
         }
 
         .section-content a {
@@ -94,6 +121,68 @@
         .section-content a:hover {
             color: var(--terminal-green);
             border-bottom-color: var(--terminal-green);
+        }
+
+        .section-content ul, 
+        .section-content ol {
+            margin: 0.5em 0 1em 2em;
+        }
+
+        .section-content li {
+            margin-bottom: 0.5em;
+        }
+
+        .section-content code {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--inline-code-bg);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background-color: var(--code-bg);
+            border-radius: 5px;
+            padding: 1em;
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+
+        .section-content pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 0.9em;
+            color: var(--text-primary);
+        }
+
+        .section-content blockquote {
+            border-left: 4px solid var(--blockquote-border);
+            padding: 0 1em;
+            color: var(--text-secondary);
+            margin: 1em 0;
+        }
+
+        .section-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .section-content table th,
+        .section-content table td {
+            border: 1px solid var(--border-color);
+            padding: 0.5em 1em;
+        }
+
+        .section-content table th {
+            background-color: var(--sidebar-bg);
+        }
+
+        .section-content img {
+            max-width: 100%;
+            margin: 1em 0;
+            border-radius: 5px;
         }
 
         /* Blog List Styles */
